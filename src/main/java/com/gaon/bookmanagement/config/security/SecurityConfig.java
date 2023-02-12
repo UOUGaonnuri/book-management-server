@@ -40,9 +40,9 @@ public class SecurityConfig {
                 .logout().disable()
                 .authorizeRequests()
                 // >> 해당 부분은 customizing 필요함
-                .antMatchers("/api/user").hasRole("USER")
-                .antMatchers("/api/admin").hasRole("ADMIN")
-                .antMatchers("/api/member").authenticated()
+                .antMatchers("/api/user/**").hasRole("USER")
+                .antMatchers("/api/admin/**").hasRole("ADMIN")
+                .antMatchers("/api/member/**").authenticated()
                 .anyRequest().permitAll()
                 // << have to customizing
                 .and()
