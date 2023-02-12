@@ -3,9 +3,9 @@ package com.gaon.bookmanagement.service.book;
 
 import com.gaon.bookmanagement.constant.enums.ErrorCode;
 import com.gaon.bookmanagement.constant.exception.CustomBookException;
-import com.gaon.bookmanagement.constant.exception.CustomMemberException;
 import com.gaon.bookmanagement.domain.Book;
 import com.gaon.bookmanagement.dto.request.BookPostReqDto;
+import com.gaon.bookmanagement.dto.response.BookDetailRespDto;
 import com.gaon.bookmanagement.dto.response.BookPostRespDto;
 import com.gaon.bookmanagement.dto.response.FileDto;
 import com.gaon.bookmanagement.repository.BookRepository;
@@ -73,6 +73,14 @@ public class BookService {
     //책 조회
 
     // 책 상세 조회
+    public BookDetailRespDto getDetailBook(Long bookId) {
+        Book findBook = bookRepository.findById(bookId).orElseThrow(() -> {
+            throw new IllegalArgumentException("CAN NOT FIND");
+        });
+
+        return new BookDetailRespDto(findBook);
+    }
+
 
     // 책 삭제
     public void bookDelete(Long bookId) {

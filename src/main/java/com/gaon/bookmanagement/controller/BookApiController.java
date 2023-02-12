@@ -1,8 +1,8 @@
 package com.gaon.bookmanagement.controller;
 
 import com.gaon.bookmanagement.constant.dto.ApiResponse;
-import com.gaon.bookmanagement.domain.Book;
 import com.gaon.bookmanagement.dto.request.BookPostReqDto;
+import com.gaon.bookmanagement.dto.response.BookDetailRespDto;
 import com.gaon.bookmanagement.dto.response.BookPostRespDto;
 import com.gaon.bookmanagement.service.book.BookService;
 import lombok.RequiredArgsConstructor;
@@ -42,8 +42,8 @@ public class BookApiController {
     @PutMapping("/api/admin/book/{bookId}")
     public ResponseEntity<ApiResponse<BookPostRespDto>> bookEdit(
             @PathVariable Long bookId,
-            @RequestPart(value = "bookPostReqDto") @Valid BookPostReqDto bookPostReqDto,
-            @RequestPart(value = "file")MultipartFile file
+            @RequestPart(value = "bookPostReqDto", required = false) @Valid BookPostReqDto bookPostReqDto,
+            @RequestPart(value = "file", required = false) MultipartFile file
     ) {
         BookPostRespDto bookEditDto = bookService.bookEdit(bookId, bookPostReqDto, file);
 
@@ -53,7 +53,12 @@ public class BookApiController {
     // 책 조회
 
     //책 상세 조회
+    @GetMapping("/api/book/{bookId}")
+    public ResponseEntity<ApiResponse<BookDetailRespDto>> getDetailBook(@PathVariable Long bookId) {
+        BookDetailRespDto detailBook = bookService.getDetailBook(bookId);
 
+        return ResponseEntity.ok().body(ApiResponse.createSuccess(detailBook, "Get Book Success!"));
+    }
     // 책 삭제
     @DeleteMapping("/api/admin/book/{bookId}")
     public ResponseEntity<ApiResponse<Boolean>> bookDelete(@PathVariable Long bookId) {
