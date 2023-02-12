@@ -33,7 +33,7 @@ public class AuthApiController {
     private final JwtUtils jwtUtils;
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/join")
+    @PostMapping("/api/join")
     public ApiResponse<JoinResponseDto> join(@RequestBody @Valid JoinRequestDto joinRequestDto) {
         log.info("joinRequestDto.getUsername : " + joinRequestDto.getUsername());
         log.info("joinRequestDto.getPassword : " + joinRequestDto.getPassword());
@@ -44,19 +44,19 @@ public class AuthApiController {
         return ApiResponse.createSuccess(joinMember, "Join Success!");
     }
 
-    @GetMapping("/check/{username}/username")
+    @GetMapping("/api/check/{username}/username")
     public ApiResponse<Boolean> usernameDuplicateCheck(@PathVariable String username) {
         memberService.usernameDuplicateCheck(username);
         return ApiResponse.createSuccess(Boolean.FALSE, "사용가능한 아이디입니다.");
     }
 
-    @GetMapping("/check/{email}/email")
+    @GetMapping("/api/check/{email}/email")
     public ApiResponse<Boolean> emailDuplicateCheck(@PathVariable String email) {
         memberService.emailDuplicateCheck(email);
         return ApiResponse.createSuccess(Boolean.FALSE, "사용가능한 아이디입니다.");
     }
 
-    @PostMapping("/login")
+    @PostMapping("/api/login")
     public ResponseEntity<ApiResponse<LoginResponseDto>> login(@RequestBody @Valid LoginRequestDto loginRequestDto) throws RuntimeException {
         log.info("loginRequestDto.getUsername : " + loginRequestDto.getUsername());
         log.info("loginRequestDto.getPassword : " + loginRequestDto.getPassword());
@@ -68,8 +68,8 @@ public class AuthApiController {
         return ResponseEntity.ok().header(SET_COOKIE, refreshTokenCookie.toString()).body(ApiResponse.createSuccess(loginResponseDto, "Login Success!"));
     }
 
-    @PostMapping("/reissue")
-    public ApiResponse<ReissueDto> reissue(String refreshToken) {
+    @PostMapping("/api/member/reissue")
+    public ApiResponse<ReissueDto> reissue(@CookieValue(value = JwtUtils.REFRESH_TOKEN_NAME, defaultValue = "") String refreshToken) {
         log.info("refreshToken : " + refreshToken);
         if (!refreshToken.isEmpty()) {
             ReissueDto result = memberService.reissue(refreshToken);
@@ -79,7 +79,7 @@ public class AuthApiController {
         }
     }
 
-    @PostMapping("/logout")
+    @PostMapping("/api/member/logout")
     public ResponseEntity<ApiResponse<LogoutDto>> logout(@CookieValue(value = JwtUtils.REFRESH_TOKEN_NAME, defaultValue = "") String refreshToken,
                                                          HttpServletRequest request, HttpServletResponse response) {
         String accessToken = jwtUtils.resolveToken(request);

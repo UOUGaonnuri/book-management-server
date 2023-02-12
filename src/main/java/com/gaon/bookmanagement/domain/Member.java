@@ -33,6 +33,9 @@ public class Member extends BaseEntity{
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BorrowBook> borrowBooks = new ArrayList<>();
 
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ZzimBook> zzimBooks = new ArrayList<>();
+
     @Builder
     public Member(String username, String password, String email) {
         this.username = username;

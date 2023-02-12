@@ -40,9 +40,10 @@ public class SecurityConfig {
                 .logout().disable()
                 .authorizeRequests()
                 // >> 해당 부분은 customizing 필요함
-                .antMatchers("/login", "/join").permitAll()
-                .antMatchers("/api/**").hasRole("USER")
-                .antMatchers("/admin").hasRole("ADMIN")
+                .antMatchers("/api/user").hasRole("USER")
+                .antMatchers("/api/admin").hasRole("ADMIN")
+                .antMatchers("/api/member").authenticated()
+                .anyRequest().permitAll()
                 // << have to customizing
                 .and()
                 .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())

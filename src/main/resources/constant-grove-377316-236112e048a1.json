@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "constant-grove-377316",
+  "private_key_id": "236112e048a1b775b3ce6e9446651146d80a8485",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCzYvYWvV/L6om1\nEIXRxaAOWj20UrS4GBhzTcbJPdCfwCErlgI/PUbk8XFT8sbxWVOStFl8ZzYGTwEL\nPogvKF/x7uGoNdqUtIjuwqsCCDxvlUn5P1ezeKC1xHwI4AeYLNrNDWga6FDh9nSx\nZPc6M9RcsjJXEzTbuA8DvijqU0r5vdGLlk9FyYDtmWqK8DVYcipNXXQhde1Ar1Ue\nzcx/DhCy8bheIEdfexYLHBvSxkzLX4gBtKD/fDmUnHbkXqiMWsd1L6pakmSP+hV+\nWuYZzAlScoZzh/V2P9aUsM3AMZKTy0d0+uqchmVdcA5GbVsnHdI/bwZ7bmpXfX12\n0p0bQtDlAgMBAAECggEAB7oYZjQVPTxsdjA2a2+5rGA6/+vcot3yHGZ0TLq7gUyi\nwSNgFDiit4lsKiCAm4ua+OxadSZ+P2HF5muXoVC/28xL4z5Qbg8YLxEH17PLNY08\noxLPdg52FJ/BLf8NJLGZkBBm6OaH4tSR1WeYu+SqRq2JDaojLIMoisYjva1LcZv4\nZr2bxFSlGfSw1B0FCBV6VUaoRfYvf3QSFSXiTrKAfgdycbx7Avigx5FxAfFfVOP3\nefrhsrayvLhd1SolRFfRTQidw5hJx8qGHq2Jio/w+YRHZSfBbGnFUEcKxjiEco9a\nCHb9muZov8Cb1nhGnVlUtPwLzWUN8bqDirUtFtDbgwKBgQDcFYTpR6HMuXWM6C6i\n0BqxbqrCPcsDjMQ81tc4FJE40vZQ28tRjo9opLyhPbFPCMsw2dLr8NbyalaDNe85\nhzfrRRM/N5lGKbdbLYbfB1t9Uj73ARVcWeUzAkv3cV6dN3hIOR51lrTa3k/eZ2P7\nGfSgnBUepx8rV252W0v/NAk2TwKBgQDQqTe1Q+7UdCZRPGDOdCWbYrQWeRur0XaO\nnAgGMZZx0o7S3AwBnArqjrZA5o6WZXsI7Z8AHHKJLt0ykIgilO88Hx6CnxRIMakQ\n2BIjsdyOyXdnqbG3TlQkhIHmsacTiQigc5fgV42qiPYjVURx3STaONS3eYv2Ry8z\nWZrTNddsiwKBgF+2CBA/c7EJsoJt8uIhaIpjW2WP4/sOO8VNlVkxMJqqvC4b+Abm\n3Z0fj1z77GE3rM343M549bGE50y2puu4z2vEpYMnlcO6np/LY80YcQRGQVXAJd78\nxT1ysUDSD9iFaAzYslNnEA3jAo7xHbz047r5RgIHofmCU2qrd5hrs9nnAoGAOVqq\nA1se5KrgdWfhPB5Uz/c7hQnY/0teCSj+U6WBsturgm4VpsObhImhswksnE5cmUGn\neMJZATgueN2dbdP+RkpPepv7WTS9QfICWmljNKRP++B7BuWy3y7E/gJK6GW8R04+\nqt2mBQAMl/2yCJI+tPT2E1CHljRO1xCELBYalq0CgYAvoT2uYf/5Vuyt48Xm6A6T\ns9gCc9dNRIkJrV6vDuOsCDGFOqfrF4HlFVYKJqXy4PGDiuEBboV/8im1PKiOM7wC\nJjpU+ZfyV0f5mnyihURg13bY1y/IK8SL+HGUNo4jBYGDL5UpSmy3RDgu5sgNMmpm\npC+wwt8UO2UHKpRu4PQ4UQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "book-prj@constant-grove-377316.iam.gserviceaccount.com",
+  "client_id": "107950737052474471369",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/book-prj%40constant-grove-377316.iam.gserviceaccount.com"
+}

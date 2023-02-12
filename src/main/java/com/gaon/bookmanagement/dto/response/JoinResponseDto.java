@@ -1,10 +1,12 @@
 package com.gaon.bookmanagement.dto.response;
 
 import com.gaon.bookmanagement.domain.Member;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 public class JoinResponseDto {
     private Long id;
