@@ -1,7 +1,6 @@
 package com.gaon.bookmanagement.domain;
 
 import com.gaon.bookmanagement.dto.request.BookPostReqDto;
-import com.gaon.bookmanagement.dto.response.BookPostRespDto;
 import com.gaon.bookmanagement.dto.response.FileDto;
 import lombok.*;
 
@@ -45,8 +44,8 @@ public class Book extends BaseEntity{
     @Column(nullable = false)
     private boolean deleted;
 
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<BorrowBook> borrowBookList = new ArrayList<>();
+//    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<BorrowBook> borrowBookList = new ArrayList<>();
 
     @OneToMany(mappedBy = "book")
     private List<ZzimBook> zzimBookList = new ArrayList<>();
@@ -64,7 +63,7 @@ public class Book extends BaseEntity{
     public void setDeleted() {
         this.deleted = false;
     }
-    public void bookDeleted() {
+    public void deletedBook() {
         this.deleted = true;
     }
 
@@ -80,5 +79,16 @@ public class Book extends BaseEntity{
     public void addFile(FileDto fileDto) {
         this.fileName = fileDto.getFileName();
         this.fileUrl = fileDto.getFileUrl();
+    }
+
+    public void stockMinus() {
+        if(this.stock < 1) {
+            throw new IllegalArgumentException("재고가 부족합니다.");
+        }
+        this.stock --;
+    }
+
+    public void stockAdd() {
+        this.stock ++;
     }
 }
