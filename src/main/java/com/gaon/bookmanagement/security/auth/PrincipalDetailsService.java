@@ -1,5 +1,7 @@
 package com.gaon.bookmanagement.security.auth;
 
+import com.gaon.bookmanagement.constant.enums.ErrorCode;
+import com.gaon.bookmanagement.constant.exception.CustomException;
 import com.gaon.bookmanagement.domain.Member;
 import com.gaon.bookmanagement.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +18,7 @@ public class PrincipalDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Member member = memberRepository.findByUsername(username).orElseThrow(() -> {
-            throw new UsernameNotFoundException("해당 아이디가 존재하지 않습니다.");
+            throw new CustomException(ErrorCode.USER_NAME_NOT_FIND);
         });
         return new PrincipalDetails(member);
     }

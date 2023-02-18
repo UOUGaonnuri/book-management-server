@@ -1,8 +1,7 @@
 package com.gaon.bookmanagement.service.member;
 
 import com.gaon.bookmanagement.constant.enums.ErrorCode;
-import com.gaon.bookmanagement.constant.exception.CustomMemberException;
-import com.gaon.bookmanagement.constant.exception.CustomTokenException;
+import com.gaon.bookmanagement.constant.exception.CustomException;
 import com.gaon.bookmanagement.domain.Member;
 import com.gaon.bookmanagement.dto.request.JoinRequestDto;
 import com.gaon.bookmanagement.dto.request.LoginRequestDto;
@@ -55,7 +54,7 @@ public class AuthService {
 
         if(result) {
             // 중복되는 경우
-            throw new CustomMemberException(ErrorCode.DUPLICATION_MEMBER);
+            throw new CustomException(ErrorCode.DUPLICATION_MEMBER);
         }
     }
 
@@ -63,19 +62,19 @@ public class AuthService {
         boolean result = memberRepository.existsByEmail(email);
         if(result) {
             // 중복되는 경우
-            throw new CustomMemberException(ErrorCode.DUPLICATION_EMAIL);
+            throw new CustomException(ErrorCode.DUPLICATION_EMAIL);
         }
     }
 
     public LoginResponseDto login(LoginRequestDto loginRequestDto) throws RuntimeException{
 //        https://wildeveloperetrain.tistory.com/56
         Member member = memberRepository.findByUsername(loginRequestDto.getUsername()).orElseThrow(() -> {
-            throw new CustomMemberException(ErrorCode.USER_NOT_FOUND);
+            throw new CustomException(ErrorCode.USER_NAME_NOT_FIND);
         });
 
         // 비밀번호가 틀렸을때 오류 예외 발생시키기
         if(!passwordEncoder.matches(loginRequestDto.getPassword(), member.getPassword())) {
-            throw new CustomMemberException(ErrorCode.PASSWORD_ERROR);
+            throw new CustomException(ErrorCode.PASSWORD_ERROR);
         }
 
         String accessToken = jwtUtils.createAccessToken(member.getUsername());
@@ -94,7 +93,7 @@ public class AuthService {
 
     public ReissueDto reissue(String refreshToken) {
         if(!jwtUtils.validateToken(refreshToken)) {
-            throw new IllegalArgumentException("Invalid RefreshToken");
+            throw new CustomException(ErrorCode.INVALID_REFRESH_TOKEN);
         }
 
         String username = jwtUtils.getUsername(refreshToken);
@@ -102,7 +101,7 @@ public class AuthService {
         log.info("refreshToken : " + refreshToken);
         log.info("savedRefreshToken : " + savedRefreshToken);
         if(refreshToken.isEmpty() || !refreshToken.equals(savedRefreshToken)) {
-            throw new IllegalArgumentException("Invalid RefreshToken");
+            throw new CustomException(ErrorCode.INVALID_REFRESH_TOKEN);
         } else {
             String newAccessToken = jwtUtils.createAccessToken(username);
 
@@ -113,7 +112,7 @@ public class AuthService {
     public LogoutDto logout(String accessToken) {
         log.info("accessToken : " + accessToken);
         if(!jwtUtils.validateToken(accessToken)) {
-            throw new CustomTokenException(ErrorCode.INVALID_TOKEN);
+            throw new CustomException(ErrorCode.INVALID_TOKEN);
         }
         Authentication authentication = jwtUtils.getAuthentication(accessToken);
         String username = authentication.getName();

@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class CustomBookException extends RuntimeException{
-    private ErrorCode error;
+public class CustomException extends RuntimeException{
+    ErrorCode errorCode;
 }

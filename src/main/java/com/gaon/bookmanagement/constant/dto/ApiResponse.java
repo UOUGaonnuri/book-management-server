@@ -3,6 +3,7 @@ package com.gaon.bookmanagement.constant.dto;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -14,19 +15,16 @@ import java.util.Map;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ApiResponse <T>{
-    private static final String SUCCESS_STATUS = "success";
-    private static final String FAIL_STATUS = "fail";
-    private static final String ERROR_STATUS = "error";
-    private String status;
+    private HttpStatus httpStatus;
     private T data;
     private String message;
 
     public static <T> ApiResponse<T> createSuccess(T data, String message) {
-        return new ApiResponse<>(SUCCESS_STATUS, data, message);
+        return new ApiResponse<>(HttpStatus.OK, data, message);
     }
 
-    public static ApiResponse<?> createSuccessWithNoContent(String message) {
-        return new ApiResponse<>(SUCCESS_STATUS, null, message);
+    public static ApiResponse<String> createSuccessWithNoContent(String message) {
+        return new ApiResponse<>(HttpStatus.OK, null, message);
     }
 
     //Hibernate Validator에 의해 유효하지 않은 데이터로 인해 API 호출이 거불될때 반환
@@ -41,16 +39,16 @@ public class ApiResponse <T>{
                 errors.put(error.getObjectName(), error.getDefaultMessage());
             }
         }
-        return new ApiResponse<>(FAIL_STATUS, errors, null);
+        return new ApiResponse<>(HttpStatus.BAD_REQUEST, errors, "FAIL");
     }
 
     // 예외 발생으로 API 호출 실패시 반환
-    public static <T> ApiResponse<T> createError(T data, String message) {
-        return new ApiResponse<>(ERROR_STATUS, data, message);
+    public static ApiResponse<String> createError(HttpStatus status, String errorMsg) {
+        return new ApiResponse<>(status, errorMsg, "FAIL");
     }
 
-    private ApiResponse(String status, T data, String message) {
-        this.status = status;
+    private ApiResponse(HttpStatus status, T data, String message) {
+        this.httpStatus = status;
         this.data = data;
         this.message = message;
     }
