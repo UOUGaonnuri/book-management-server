@@ -51,6 +51,8 @@ public class Member extends BaseEntity{
         this.role = Role.ROLE_USER;
     }
 
+    public void modifyUserAuthority() { this.role = Role.ROLE_ADMIN; }
+
     public void encodePassword(PasswordEncoder passwordEncoder) {
         this.password = passwordEncoder.encode(password);
     }
