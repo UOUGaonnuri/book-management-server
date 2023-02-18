@@ -1,5 +1,7 @@
 package com.gaon.bookmanagement.service.file;
 
+import com.gaon.bookmanagement.constant.enums.ErrorCode;
+import com.gaon.bookmanagement.constant.exception.CustomException;
 import com.gaon.bookmanagement.dto.response.FileDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +25,7 @@ public class FileService {
     public FileDto uploadFIle(MultipartFile file) {
         String fileOriginalName = file.getOriginalFilename();
         if(fileOriginalName == null) {
-            throw new IllegalArgumentException("Original file name null!");
+            throw new CustomException(ErrorCode.FILE_NAME_NULL);
         }
         Path path = new File(fileOriginalName).toPath();
 
@@ -39,7 +41,7 @@ public class FileService {
             return fileDto;
         } catch (IOException e) {
             log.info("Error occurred while file uploading. Error : ", e);
-            throw new IllegalThreadStateException("Error occurred while file uploading");
+            throw new CustomException(ErrorCode.FILE_UPLOAD_ERROR);
         }
     }
 }

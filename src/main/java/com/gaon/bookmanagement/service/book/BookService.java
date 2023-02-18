@@ -3,7 +3,7 @@ package com.gaon.bookmanagement.service.book;
 
 import com.gaon.bookmanagement.config.security.SecurityUtil;
 import com.gaon.bookmanagement.constant.enums.ErrorCode;
-import com.gaon.bookmanagement.constant.exception.CustomBookException;
+import com.gaon.bookmanagement.constant.exception.CustomException;
 import com.gaon.bookmanagement.domain.Book;
 import com.gaon.bookmanagement.domain.BorrowBook;
 import com.gaon.bookmanagement.domain.Member;
@@ -25,7 +25,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -56,14 +55,14 @@ public class BookService {
     public void isbnDuplicateCheck(String isbn) {
         boolean result = bookRepository.existsByIsbn(isbn);
         if(result) {
-            throw new CustomBookException(ErrorCode.DUPLICATION_ISBN);
+            throw new CustomException(ErrorCode.DUPLICATION_ISBN);
         }
     }
 
     // 책 수정
     public BookPostRespDto bookEdit(Long bookId, BookPostReqDto bookEditDto, MultipartFile file) {
         Book book = bookRepository.findById(bookId).orElseThrow(() -> {
-            throw new IllegalArgumentException("CAN NOT FIND");
+            throw new CustomException(ErrorCode.NOT_FIND_BOOK);
         });
 
         // dto not null, file null
@@ -90,7 +89,7 @@ public class BookService {
     // 책 상세 조회
     public BookDetailRespDto getDetailBook(Long bookId) {
         Book findBook = bookRepository.findById(bookId).orElseThrow(() -> {
-            throw new IllegalArgumentException("CAN NOT FIND");
+            throw new CustomException(ErrorCode.NOT_FIND_BOOK);
         });
 
         return new BookDetailRespDto(findBook);
@@ -100,7 +99,7 @@ public class BookService {
     // 책 삭제
     public void bookDelete(Long bookId) {
         Book findBook = bookRepository.findById(bookId).orElseThrow(() -> {
-            throw new IllegalArgumentException("CAN NOT FIND");
+            throw new CustomException(ErrorCode.NOT_FIND_BOOK);
         });
 
         findBook.deletedBook();
@@ -110,7 +109,7 @@ public class BookService {
     // 책 빌리기
     public List<BorrowRespDto> borrowBook(List<BorrowReqDto> borrowReqDtoList) {
         Member member = memberRepository.findById(SecurityUtil.getCurrentMember()).orElseThrow(() -> {
-            throw new IllegalArgumentException("CAN NOT FIND USER");
+            throw new CustomException(ErrorCode.NOT_FIND_USER);
         });
         LocalDate now = LocalDate.now();
 
@@ -118,7 +117,7 @@ public class BookService {
 
         for(BorrowReqDto borrowReqDto : borrowReqDtoList) {
             Book findBook = bookRepository.findById(borrowReqDto.getBookId()).orElseThrow(() -> {
-                throw new IllegalArgumentException("CAN NOT FIND BOOK");
+                throw new CustomException(ErrorCode.NOT_FIND_BOOK);
             });
 
             LocalDateTime expirationDate = now.plusDays(borrowReqDto.getBorrowDate()).atStartOfDay();
