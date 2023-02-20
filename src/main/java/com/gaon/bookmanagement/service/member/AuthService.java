@@ -33,6 +33,8 @@ public class AuthService {
     private final RedisTemplate redisTemplate;
 
     public JoinResponseDto join(JoinRequestDto joinRequestDto) {
+        usernameDuplicateCheck(joinRequestDto.getUsername());
+        emailDuplicateCheck(joinRequestDto.getEmail());
         Member member = joinRequestDto.toEntity();
         member.addUserAuthority();
         member.encodePassword(passwordEncoder);
