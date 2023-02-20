@@ -36,11 +36,7 @@ public class AuthApiController {
 
     @PostMapping("/api/join")
     public ResponseEntity<ApiResponse<JoinResponseDto>> join(@RequestBody @Valid JoinRequestDto joinRequestDto) {
-        log.info("joinRequestDto.getUsername : " + joinRequestDto.getUsername());
-        log.info("joinRequestDto.getPassword : " + joinRequestDto.getPassword());
-        log.info("joinRequestDto.getEmail : " + joinRequestDto.getEmail());
         JoinResponseDto joinMember = memberService.join(joinRequestDto);
-        log.info("joinMember : " + joinMember.getUsername());
 
         return ResponseEntity.ok().body(ApiResponse.createSuccess(joinMember, "Join Success!"));
     }
@@ -59,8 +55,6 @@ public class AuthApiController {
 
     @PostMapping("/api/login")
     public ResponseEntity<ApiResponse<LoginResponseDto>> login(@RequestBody @Valid LoginRequestDto loginRequestDto) throws RuntimeException {
-        log.info("loginRequestDto.getUsername : " + loginRequestDto.getUsername());
-        log.info("loginRequestDto.getPassword : " + loginRequestDto.getPassword());
         LoginResponseDto loginResponseDto = memberService.login(loginRequestDto);
         String refreshToken = redisUtils.getData("RT:"+loginRequestDto.getUsername());
         ResponseCookie refreshTokenCookie = CookieUtils.createCookie(JwtUtils.REFRESH_TOKEN_NAME, refreshToken);
@@ -71,7 +65,6 @@ public class AuthApiController {
 
     @PostMapping("/api/member/reissue")
     public ResponseEntity<ApiResponse<ReissueDto>> reissue(@CookieValue(value = JwtUtils.REFRESH_TOKEN_NAME, defaultValue = "") String refreshToken) {
-        log.info("refreshToken : " + refreshToken);
         if (!refreshToken.isEmpty()) {
             ReissueDto result = memberService.reissue(refreshToken);
             return ResponseEntity.ok().body(ApiResponse.createSuccess(result, "Reissue Success!"));
