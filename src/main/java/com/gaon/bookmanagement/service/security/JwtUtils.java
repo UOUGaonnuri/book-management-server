@@ -27,7 +27,9 @@ public class JwtUtils {
     private final UserDetailsService userDetailsService;
 
     public static final String REFRESH_TOKEN_NAME = "refresh_token";
-    public static final Long ACCESS_TOKEN_VALID_TIME = 30 * 60 * 1000L;
+    // 5분
+    public static final Long ACCESS_TOKEN_VALID_TIME = 30 * 10000L;
+    // 7일
     public static final Long REFRESH_TOKEN_VALID_TIME = 7 * 24 * 60 * 60 * 1000L;
 
     @Value("${jwt.security.key}")
