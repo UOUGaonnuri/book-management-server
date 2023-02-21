@@ -1,6 +1,6 @@
 HELP.md
 .gradle
-.yml
+.DS_Store
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
@@ -9,6 +9,7 @@ build/
 
 ### IntelliJ IDEA ###
 .idea
+docker-compose.yml
 *.iws
 *.iml
 *.ipr

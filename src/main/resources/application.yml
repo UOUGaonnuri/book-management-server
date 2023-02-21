@@ -13,7 +13,7 @@ spring:
 #    url: jdbc:mysql://localhost:3306/bookManagement?serverTimezone=Asia/Seoul
 #    username: sungchoon
 #    password: sungchoon
-제
+
 #    url: jdbc:mysql://localhost:3305/book_management?serverTimezone=Asia/Seoul
     url: jdbc:mysql://localhost:3306/book_management
 #    url: jdbc:mysql://docker-management-server:3306/book_management
@@ -40,6 +40,10 @@ spring:
     host: localhost
     port: 6379
 
+jwt:
+  security:
+    key: gaonnurijwttesttesttestasdfasfdsfafasdfdsdfsdfsfsdfsfafsdfdsfdsg
+
 gcp:
   config:
     file: constant-grove-377316-236112e048a1.json
@@ -51,7 +55,3 @@ gcp:
     id: book-prj-storage
   dir:
     name: dev
-
-jwt:
-  security:
-    key: gaonnurijwttesttesttestasdfasfdsfafasdfdsdfsdfsfsdfsfafsdfdsfdsg

@@ -81,6 +81,7 @@ public class AuthService {
         return LoginResponseDto.builder()
                 .username(member.getUsername())
                 .accessToken(accessToken)
+                .role(member.getRoleValue())
                 .build();
     }
 
