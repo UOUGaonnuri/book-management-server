@@ -1,0 +1,11 @@
+gcp:
+  config:
+    file: constant-grove-377316-236112e048a1.json
+  project:
+    # project id
+    id: constant-grove-377316
+  bucket:
+    # bucket name
+    id: book-prj-storage
+  dir:
+    name: dev
