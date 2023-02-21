@@ -42,8 +42,7 @@ public class BookService {
 
         // 파일 처리
         FileDto fileDto = fileService.uploadFIle(file);
-        //
-        book.setDeleted();
+
         book.addFile(fileDto);
 
         Book saveBook = bookRepository.save(book);
@@ -126,7 +125,7 @@ public class BookService {
             borrowBook.setInitialExpired();
 
             findBook.stockMinus();
-            // 연관관계 메서드 만들기
+            // 연관관계 편의메서드 만들기
             BorrowBook saveBorrowBook = borrowBookRepository.save(borrowBook);
 
             borrowBookList.add(new BorrowRespDto(saveBorrowBook));

@@ -33,18 +33,11 @@ public class AuthService {
     private final RedisTemplate redisTemplate;
 
     public JoinResponseDto join(JoinRequestDto joinRequestDto) {
-        log.info("joinRequestDto.getUsername : "+joinRequestDto.getUsername());
-        log.info("joinRequestDto.getPassword : "+joinRequestDto.getPassword());
-        log.info("joinRequestDto.getEmail : "+ joinRequestDto.getEmail());
-
-        Member member = joinRequestDto.toEntity();
-        member.addUserAuthority();
-        member.encodePassword(passwordEncoder);
+        usernameDuplicateCheck(joinRequestDto.getUsername());
+        emailDuplicateCheck(joinRequestDto.getEmail());
+        Member member = joinRequestDto.toEntity(passwordEncoder);
 
         Member joinMember = memberRepository.save(member);
-
-        log.info("joinMemberId(pk) : "+joinMember.getId());
-        log.info("joinMemberName : "+joinMember.getUsername());
 
         return new JoinResponseDto(joinMember);
     }
@@ -95,11 +88,8 @@ public class AuthService {
         if(!jwtUtils.validateToken(refreshToken)) {
             throw new CustomException(ErrorCode.INVALID_REFRESH_TOKEN);
         }
-
         String username = jwtUtils.getUsername(refreshToken);
         String savedRefreshToken = redisUtils.getData("RT:"+username);
-        log.info("refreshToken : " + refreshToken);
-        log.info("savedRefreshToken : " + savedRefreshToken);
         if(refreshToken.isEmpty() || !refreshToken.equals(savedRefreshToken)) {
             throw new CustomException(ErrorCode.INVALID_REFRESH_TOKEN);
         } else {
@@ -110,7 +100,6 @@ public class AuthService {
     }
 
     public LogoutDto logout(String accessToken) {
-        log.info("accessToken : " + accessToken);
         if(!jwtUtils.validateToken(accessToken)) {
             throw new CustomException(ErrorCode.INVALID_TOKEN);
         }

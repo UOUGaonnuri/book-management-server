@@ -27,4 +27,11 @@ public class CustomExceptionHandler {
         return ResponseEntity.status(e.getErrorCode().getHttpStatus())
                 .body(ApiResponse.createError(e.getErrorCode().getHttpStatus(), e.getErrorCode().getMessage()));
     }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ApiResponse<String>> handleException(Exception e) {
+        log.error(e.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(ApiResponse.createError(HttpStatus.INTERNAL_SERVER_ERROR, "내부 서버 오류입니다."));
+    }
 }

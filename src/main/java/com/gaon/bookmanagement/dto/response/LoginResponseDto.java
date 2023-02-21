@@ -9,10 +9,12 @@ import lombok.NoArgsConstructor;
 public class LoginResponseDto {
     private String username;
     private String accessToken;
+    private String role;
 
     @Builder
-    public LoginResponseDto(String username, String accessToken) {
+    public LoginResponseDto(String username, String accessToken, String role) {
         this.username = username;
         this.accessToken = "Bearer "+accessToken;
+        this.role = role;
     }
 }
