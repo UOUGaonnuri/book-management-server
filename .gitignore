@@ -10,7 +10,6 @@ build/
 ### IntelliJ IDEA ###
 .idea
 docker-compose.yml
-application
 *.iws
 *.iml
 *.ipr
