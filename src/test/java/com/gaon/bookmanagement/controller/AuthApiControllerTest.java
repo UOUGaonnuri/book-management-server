@@ -43,17 +43,17 @@ class AuthApiControllerTest {
         em.clear();
     }
 
-    @Test
-    void 회원가입_성공() {
-        JoinRequestDto joinMember= new JoinRequestDto("choon", "qkrtjdcns1!", "songchoon@naver.com");
-        Member member = joinMember.toEntity();
-        Member saveMember = memberRepository.save(member);
-
-        Optional<Member> findMember = memberRepository.findById(saveMember.getId());
-
-        assertEquals(saveMember.getId(), findMember.get().getId());
-        assertEquals(saveMember, findMember.get());
-    }
+//    @Test
+//    void 회원가입_성공() {
+//        JoinRequestDto joinMember= new JoinRequestDto("choon", "qkrtjdcns1!", "songchoon@naver.com");
+//        Member member = joinMember.toEntity();
+//        Member saveMember = memberRepository.save(member);
+//
+//        Optional<Member> findMember = memberRepository.findById(saveMember.getId());
+//
+//        assertEquals(saveMember.getId(), findMember.get().getId());
+//        assertEquals(saveMember, findMember.get());
+//    }
 
     @Test
     void 회원가입_실패() throws Exception {

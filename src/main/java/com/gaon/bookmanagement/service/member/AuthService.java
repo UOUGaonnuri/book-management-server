@@ -35,9 +35,7 @@ public class AuthService {
     public JoinResponseDto join(JoinRequestDto joinRequestDto) {
         usernameDuplicateCheck(joinRequestDto.getUsername());
         emailDuplicateCheck(joinRequestDto.getEmail());
-        Member member = joinRequestDto.toEntity();
-        member.addUserAuthority();
-        member.encodePassword(passwordEncoder);
+        Member member = joinRequestDto.toEntity(passwordEncoder);
 
         Member joinMember = memberRepository.save(member);
 
