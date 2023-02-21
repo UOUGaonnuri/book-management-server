@@ -51,18 +51,16 @@ public class Book extends BaseEntity{
     private List<ZzimBook> zzimBookList = new ArrayList<>();
 
     @Builder
-    public Book(String title, String author, String publisher, int stock, String content, String isbn) {
+    public Book(String title, String author, String publisher, int stock, String content, String isbn, boolean deleted) {
         this.title = title;
         this.author = author;
         this.publisher = publisher;
         this.stock = stock;
         this.content = content;
         this.isbn = isbn;
+        this.deleted = deleted;
     }
 
-    public void setDeleted() {
-        this.deleted = false;
-    }
     public void deletedBook() {
         this.deleted = true;
     }

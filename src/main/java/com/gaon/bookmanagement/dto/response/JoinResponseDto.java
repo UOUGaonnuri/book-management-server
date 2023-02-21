@@ -11,11 +11,9 @@ import lombok.NoArgsConstructor;
 public class JoinResponseDto {
     private Long id;
     private String username;
-    private String role;
 
     public JoinResponseDto(Member member) {
         this.id = member.getId();
         this.username = member.getUsername();
-        this.role = member.getRoleValue();
     }
 }

@@ -37,6 +37,7 @@ public class BookPostReqDto {
                 .stock(stock)
                 .content(content)
                 .isbn(isbn)
+                .deleted(false)
                 .build();
     }
 }

@@ -1,9 +1,9 @@
 package com.gaon.bookmanagement.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.gaon.bookmanagement.dto.request.JoinRequestDto;
+import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
@@ -15,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 public class Member extends BaseEntity{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -37,23 +38,17 @@ public class Member extends BaseEntity{
     private List<ZzimBook> zzimBooks = new ArrayList<>();
 
     @Builder
-    public Member(String username, String password, String email) {
+    public Member(String username, String password, String email, Role role) {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.role = role;
     }
 
     public String getRoleValue() {
         return this.role.value();
     }
 
-    public void addUserAuthority() {
-        this.role = Role.ROLE_USER;
-    }
-
     public void modifyUserAuthority() { this.role = Role.ROLE_ADMIN; }
 
-    public void encodePassword(PasswordEncoder passwordEncoder) {
-        this.password = passwordEncoder.encode(password);
-    }
 }
