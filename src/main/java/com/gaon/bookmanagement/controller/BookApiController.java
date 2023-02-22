@@ -5,10 +5,13 @@ import com.gaon.bookmanagement.dto.request.BookPostReqDto;
 import com.gaon.bookmanagement.dto.request.BorrowReqDto;
 import com.gaon.bookmanagement.dto.response.BookDetailRespDto;
 import com.gaon.bookmanagement.dto.response.BookPostRespDto;
+import com.gaon.bookmanagement.dto.response.BooksRespDto;
 import com.gaon.bookmanagement.dto.response.BorrowRespDto;
 import com.gaon.bookmanagement.service.book.BookService;
 import com.google.protobuf.Api;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +27,12 @@ public class BookApiController {
     private final BookService bookService;
 
     // 책 조회
+    @GetMapping("/api/books")
+    public ResponseEntity<ApiResponse<List<BooksRespDto>>> getBooks(@PageableDefault(size = 6)Pageable pageable) {
+        List<BooksRespDto> books = bookService.getBooks(pageable);
+
+        return ResponseEntity.ok().body(ApiResponse.createSuccess(books, "Get Books Success!"));
+    }
 
     //책 상세 조회
     @GetMapping("/api/book/{bookId}")
