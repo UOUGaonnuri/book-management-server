@@ -3,6 +3,7 @@ package com.gaon.bookmanagement.domain;
 import com.gaon.bookmanagement.dto.request.BookPostReqDto;
 import com.gaon.bookmanagement.dto.response.FileDto;
 import lombok.*;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -12,6 +13,8 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Entity
+// SELECT 구문에서 default로 caluse를 실행한다.
+@Where(clause = "deleted = false")
 public class Book extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
