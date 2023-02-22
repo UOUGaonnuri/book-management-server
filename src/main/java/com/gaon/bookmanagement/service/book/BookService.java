@@ -9,15 +9,14 @@ import com.gaon.bookmanagement.domain.BorrowBook;
 import com.gaon.bookmanagement.domain.Member;
 import com.gaon.bookmanagement.dto.request.BookPostReqDto;
 import com.gaon.bookmanagement.dto.request.BorrowReqDto;
-import com.gaon.bookmanagement.dto.response.BookDetailRespDto;
-import com.gaon.bookmanagement.dto.response.BookPostRespDto;
-import com.gaon.bookmanagement.dto.response.BorrowRespDto;
-import com.gaon.bookmanagement.dto.response.FileDto;
+import com.gaon.bookmanagement.dto.response.*;
 import com.gaon.bookmanagement.repository.BookRepository;
 import com.gaon.bookmanagement.repository.BorrowBookRepository;
 import com.gaon.bookmanagement.repository.MemberRepository;
 import com.gaon.bookmanagement.service.file.FileService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -84,6 +83,16 @@ public class BookService {
     }
 
     //책 조회
+    @Transactional(readOnly = true)
+    public List<BooksRespDto> getBooks(Pageable pageable) {
+        Page<Book> books = bookRepository.findAll(pageable);
+        List<BooksRespDto> booksDto = new ArrayList<>();
+        for(Book book : books) {
+            booksDto.add(new BooksRespDto(book));
+        };
+
+        return booksDto;
+    }
 
     // 책 상세 조회
     public BookDetailRespDto getDetailBook(Long bookId) {
