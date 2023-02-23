@@ -37,6 +37,7 @@ public class BookService {
 
     // 책 등록
     public BookPostRespDto bookPost(BookPostReqDto bookPostReqDto, MultipartFile file) {
+        isbnDuplicateCheck(bookPostReqDto.getIsbn());
         Book book = bookPostReqDto.toEntity();
 
         // 파일 처리
@@ -47,6 +48,14 @@ public class BookService {
         Book saveBook = bookRepository.save(book);
 
         return new BookPostRespDto(saveBook);
+    }
+
+    // only book - 테스트용도임 나중에는 삭제 ㄱㄱ
+    public BookPostRespDto bookPostNoFile(BookPostReqDto bookPostReqDto) {
+        Book book = bookPostReqDto.toEntity();
+        book.addFile(new FileDto("hi.jpeg", "http:ss//"));
+        Book save = bookRepository.save(book);
+        return new BookPostRespDto(save);
     }
 
     // isbn 중복 조회
@@ -84,14 +93,8 @@ public class BookService {
 
     //책 조회
     @Transactional(readOnly = true)
-    public List<BooksRespDto> getBooks(Pageable pageable) {
-        Page<Book> books = bookRepository.findAll(pageable);
-        List<BooksRespDto> booksDto = new ArrayList<>();
-        for(Book book : books) {
-            booksDto.add(new BooksRespDto(book));
-        };
-
-        return booksDto;
+    public Page<BooksRespDto> getBooks(Pageable pageable) {
+        return bookRepository.findAll(pageable).map(BooksRespDto::new);
     }
 
     // 책 상세 조회
@@ -102,7 +105,6 @@ public class BookService {
 
         return new BookDetailRespDto(findBook);
     }
-
 
     // 책 삭제
     public void bookDelete(Long bookId) {
@@ -141,5 +143,14 @@ public class BookService {
         }
 
         return borrowBookList;
+    }
+
+    public Page<BooksRespDto> BookSearchList(String searchKeyword, Pageable pageable) {
+
+        Page<BooksRespDto> booksSearchDto = bookRepository.findByTitleContainingIgnoreCase(searchKeyword, pageable).map(BooksRespDto::new);
+        if(booksSearchDto.isEmpty()) {
+            throw new CustomException(ErrorCode.CAN_NOT_SEARCH);
+        }
+        return booksSearchDto;
     }
 }
