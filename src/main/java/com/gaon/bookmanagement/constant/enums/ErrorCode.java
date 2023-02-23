@@ -19,7 +19,8 @@ public enum ErrorCode {
     FILE_UPLOAD_ERROR(HttpStatus.BAD_REQUEST, "파일 업로드에 실피했습니다."),
     INVALID_REFRESH_TOKEN(HttpStatus.BAD_REQUEST, "유효하지않은 RefreshToken 입니다."),
     CONTEXT_NOT_FIND(HttpStatus.NOT_FOUND, "Security Context에 해당 인증 정보가 없습니다."),
-    EXPIRED_REFRESH_TOKEN(HttpStatus.BAD_REQUEST, "해당 RefreshToken이 만료되었습니다. 재 로그인 해주세요.");
+    EXPIRED_REFRESH_TOKEN(HttpStatus.BAD_REQUEST, "해당 RefreshToken이 만료되었습니다. 재 로그인 해주세요."),
+    CAN_NOT_SEARCH(HttpStatus.NOT_FOUND, "검색하신 책은 존재하지 않습니다.");
 
     private final HttpStatus httpStatus;
     private final String message;

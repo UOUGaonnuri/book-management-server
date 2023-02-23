@@ -29,6 +29,16 @@ public class BookAdminApiController {
         return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.createSuccess(bookPostRespDto, "Book Post Success!"));
     }
 
+    // 테스트용도 컨트롤러 삭제해야함
+    @PostMapping("/book/test")
+    public ResponseEntity<ApiResponse<BookPostRespDto>> bookPostTest(
+            @RequestBody @Valid BookPostReqDto bookPostReqDto
+    ) {
+
+        BookPostRespDto bookPostRespDto = bookService.bookPostNoFile(bookPostReqDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.createSuccess(bookPostRespDto, "Book Post No file Success!"));
+    }
+
     // isbn 중복 조회
     @GetMapping("/{isbn}/isbn")
     public ResponseEntity<ApiResponse<Boolean>> isbnDupCheck(@PathVariable String isbn) {

@@ -35,10 +35,10 @@ public class AuthApiController {
     private final JwtUtils jwtUtils;
 
     @PostMapping("/api/join")
-    public ResponseEntity<ApiResponse<JoinResponseDto>> join(@RequestBody @Valid JoinRequestDto joinRequestDto) {
+    public ResponseEntity<ApiResponse<String>> join(@RequestBody @Valid JoinRequestDto joinRequestDto) {
         JoinResponseDto joinMember = memberService.join(joinRequestDto);
 
-        return ResponseEntity.ok().body(ApiResponse.createSuccess(joinMember, "Join Success!"));
+        return ResponseEntity.ok().body(ApiResponse.createSuccessWithNoContent("Join Success!"));
     }
 
     @GetMapping("/api/check/{username}/username")
